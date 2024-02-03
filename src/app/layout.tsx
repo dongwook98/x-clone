@@ -19,7 +19,6 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         {/* page가 children에 들어감 */}
-        <h1>루트 레이아웃</h1>
         <main>{children}</main>
       </body>
     </html>
