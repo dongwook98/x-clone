@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: row;
   background-color: #fff;
+  /* dvw, dvh 전체화면 채울 수 있는 방법 */
+  /* dvw, dvh는 모바일에서 주소창이 생기거나 사라질때 상관없이 전체화면 채워줌  */
   width: 100dvw;
   height: 100dvh;
 }
