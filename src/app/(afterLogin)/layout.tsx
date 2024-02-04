@@ -2,7 +2,10 @@ import Image from 'next/image';
 import styles from './layout.module.css';
 import Link from 'next/link';
 import Logo from '../../../public/logo.png';
-import NavMenu from './_component/NavMenu';
+import NavMenu from './_components/NavMenu';
+import LogOutButton from './_components/LogOutButton';
+import TrendSection from './_components/TrendSection';
+import FollowRecommend from './_components/FollowRecommend';
 
 type Props = {
   children: React.ReactNode;
@@ -33,7 +36,8 @@ export default function AfterLoginLayout({ children }: Props) {
                 게시하기
               </Link>
             </nav>
-            {/* <LogoutButton /> */}
+            {/* 이벤트리스너는 클라이언트 컴포넌트에서 사용해야하기 때문에 분리 */}
+            <LogOutButton />
           </div>
         </section>
       </header>
@@ -51,12 +55,12 @@ export default function AfterLoginLayout({ children }: Props) {
                 <input type='search' />
               </form>
             </div>
-            {/* <TrendSection /> */}
+            <TrendSection />
             <div className={styles.followRecommend}>
               <h3>팔로우 추천</h3>
-              {/* <FollowRecommend />
               <FollowRecommend />
-              <FollowRecommend /> */}
+              <FollowRecommend />
+              <FollowRecommend />
             </div>
           </section>
         </div>
