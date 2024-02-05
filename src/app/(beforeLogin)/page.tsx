@@ -1,5 +1,5 @@
 import Main from './_components/Main';
 
-export default function HomePage() {
+export default function BeforeLoginHomePage() {
   return <Main />;
 }

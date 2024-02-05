@@ -9,6 +9,7 @@ import FollowRecommend from './_components/FollowRecommend';
 
 type Props = {
   children: React.ReactNode;
+  modal: React.ReactNode;
 };
 
 // () 폴더는 브라우저 주소에 추가되지 않음
@@ -16,7 +17,7 @@ type Props = {
 // 레이아웃은 페이지 이동해도 그대로 유지됨, 새롭게 마운트 X
 // 만약에 페이지 이동시 레이아웃도 새롭게 마운트 되게 하고 싶다면 template.tsx 사용
 // layout.tsx와 template.tsx는 공존 X
-export default function AfterLoginLayout({ children }: Props) {
+export default function AfterLoginLayout({ children, modal }: Props) {
   return (
     <div className={styles.container}>
       <header className={styles.leftSectionWrapper}>
@@ -65,6 +66,7 @@ export default function AfterLoginLayout({ children }: Props) {
           </section>
         </div>
       </div>
+      {modal}
     </div>
   );
 }
