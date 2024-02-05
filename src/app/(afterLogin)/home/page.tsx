@@ -1,3 +1,25 @@
+import Post from '../_components/Post';
+import PostForm from './_components/PostForm';
+import Tab from './_components/Tab';
+import TabProvider from './_components/TabProvider';
+import styles from './page.module.css';
+
 export default function HomePage() {
-  return <>로그인 후 메인 페이지</>;
+  return (
+    <main className={styles.main}>
+      <TabProvider>
+        <Tab />
+        <PostForm />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+      </TabProvider>
+    </main>
+  );
 }
