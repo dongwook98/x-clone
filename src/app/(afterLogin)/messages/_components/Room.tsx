@@ -13,8 +13,8 @@ dayjs.extend(relativeTime);
 export default function Room() {
   const router = useRouter();
   const user = {
-    id: 'hero',
-    nickname: '영웅',
+    id: '아이디 자리',
+    nickname: faker.person.fullName(),
     Messages: [
       { roomId: 123, content: '안녕하세요.', createdAt: new Date() },
       { roomId: 123, content: '안녕히가세요.', createdAt: new Date() },

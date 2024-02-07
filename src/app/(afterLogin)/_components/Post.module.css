@@ -56,9 +56,6 @@
   text-decoration: underline;
 }
 
-/* .postImageSection {
-} */
-
 .postBody {
   display: flex;
   flex-direction: column;
@@ -71,10 +68,4 @@
 .postMeta {
   display: flex;
   flex-direction: row;
-}
-
-.postImageSection img {
-  margin-top: 12px;
-  width: 100%;
-  border-radius: 16px;
 }

@@ -12,15 +12,15 @@ dayjs.extend(relativeTime);
 
 export default function ChatRoom() {
   const user = {
-    id: 'hero',
-    nickname: '영웅',
-    image: faker.image.avatar(),
+    id: 'dongwook98',
+    nickname: '강동욱',
+    image: '/me.png',
   };
   const messages = [
     {
       messageId: 1,
       roomId: 123,
-      id: 'zerohch0',
+      id: 'dongwook98',
       content: '안녕하세요.',
       createdAt: new Date(),
     },
@@ -51,7 +51,7 @@ export default function ChatRoom() {
       </Link>
       <div className={style.list}>
         {messages.map((m) => {
-          if (m.id === 'zerohch0') {
+          if (m.id === 'dongwook98') {
             // 내 메시지면
             return (
               <div
