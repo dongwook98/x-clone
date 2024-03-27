@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { MSWComponent } from './_components/MSWComponent';
+import AuthSession from './_components/AuthSession';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,9 +20,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        {/* page가 children에 들어감 */}
-        {children}
         <MSWComponent />
+        <AuthSession>
+          {/* page가 children에 들어감 */}
+          {children}
+        </AuthSession>
       </body>
     </html>
   );
