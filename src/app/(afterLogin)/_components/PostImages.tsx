@@ -35,6 +35,7 @@ export default function PostImages({ post }: Props) {
       </Link>
     );
   }
+
   if (post.Images.length === 2) {
     return (
       <div className={cx(styles.postImageSection, styles.twoImage)}>
@@ -55,6 +56,7 @@ export default function PostImages({ post }: Props) {
       </div>
     );
   }
+
   if (post.Images.length === 3) {
     return (
       <div className={cx(styles.postImageSection, styles.threeImage)}>
@@ -84,6 +86,7 @@ export default function PostImages({ post }: Props) {
       </div>
     );
   }
+
   if (post.Images.length === 4) {
     return (
       <div className={cx(styles.postImageSection, styles.fourImage)}>

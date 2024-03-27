@@ -1,4 +1,3 @@
-import { faker } from '@faker-js/faker';
 import style from './page.module.css';
 import Link from 'next/link';
 import BackButton from '@/app/(afterLogin)/_components/BackButton';
@@ -10,7 +9,7 @@ import dayjs from 'dayjs';
 dayjs.locale('ko');
 dayjs.extend(relativeTime);
 
-export default function ChatRoom() {
+export default function ChatRoomPage() {
   const user = {
     id: 'dongwook98',
     nickname: '강동욱',

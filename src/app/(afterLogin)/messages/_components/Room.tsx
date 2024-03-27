@@ -21,12 +21,12 @@ export default function Room() {
     ],
   };
 
-  const onClick = () => {
+  const handleClickRoom = () => {
     router.push(`/messages/${user.Messages.at(-1)?.roomId}`);
   };
 
   return (
-    <div className={styles.room} onClickCapture={onClick}>
+    <div className={styles.room} onClickCapture={handleClickRoom}>
       <div className={styles.roomUserImage}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={faker.image.avatar()} alt='' />
@@ -42,6 +42,7 @@ export default function Room() {
           </span>
         </div>
         <div className={styles.roomLastChat}>
+          {/* 마지막 메시지 가져오기 */}
           {user.Messages?.at(-1)?.content}
         </div>
       </div>

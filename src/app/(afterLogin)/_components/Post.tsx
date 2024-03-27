@@ -1,8 +1,8 @@
 import styles from './Post.module.css';
 import Link from 'next/link';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import ActionButtons from '@/app/(afterLogin)/_components/ActionButtons';
 import PostArticle from './PostArticle';
 import { faker } from '@faker-js/faker';
@@ -13,6 +13,12 @@ dayjs.extend(relativeTime);
 type Props = {
   noImage?: boolean;
 };
+
+/**
+ *
+ * @param noImage 포토 모달 진입 시 이미지 안보이게 처리하는 prop
+ * @returns
+ */
 export default function Post({ noImage }: Props) {
   // 서버에서 받아온 데이터라고 가정
   const target = {
@@ -26,6 +32,7 @@ export default function Post({ noImage }: Props) {
     createdAt: new Date(),
     Images: [] as any[],
   };
+
   if (Math.random() > 0.5 && !noImage) {
     target.Images.push(
       { imageId: 1, link: faker.image.urlLoremFlickr() },
@@ -66,6 +73,7 @@ export default function Post({ noImage }: Props) {
           <div>
             <PostImages post={target} />
           </div>
+          {/* 클라이언트 컴포넌트 분리 */}
           <ActionButtons />
         </div>
       </div>
