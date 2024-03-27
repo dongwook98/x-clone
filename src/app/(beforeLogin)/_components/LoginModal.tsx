@@ -1,20 +1,43 @@
-'use client'; // 클라이언트 컴포넌트로 바꾸는 방법
-// 기본적으로 서버 컴포넌트임 -> 서버 컴포넌트는 Next.js 서버에서 실행
-// 서버 컴포넌트는 Hooks를 못씀, 클라이언트 컴포넌트에서 Hooks 사용 가능
+'use client';
 
-import style from '@/app/(beforeLogin)/_components/LoginModal.module.css';
-import { useState } from 'react';
+import style from './LoginModal.module.css';
+import { useRouter } from 'next/navigation';
+import { ChangeEventHandler, FormEventHandler, useState } from 'react';
+import { signIn } from 'next-auth/react'; // 클라이언트 singIn은 'next-auth/react'에서 임포트
 
 export default function LoginModal() {
-  const [id, setId] = useState();
-  const [password, setPassword] = useState();
-  const [message, setMessage] = useState();
-  const onSubmit = () => {};
-  const onClickClose = () => {};
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const router = useRouter();
 
-  const onChangeId = () => {};
+  const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    setMessage('');
+    try {
+      await signIn('credentials', {
+        username: id,
+        password,
+        redirect: false, // 서버 리다이렉트 꺼줌
+      });
+      router.replace('/home'); // 클라이언트에서 리다이렉트
+    } catch (error) {
+      console.error(error);
+      setMessage('아이디와 비밀번호가 일치하지 않습니다.');
+    }
+  };
 
-  const onChangePassword = () => {};
+  const onClickClose = () => {
+    router.back();
+  };
+
+  const onChangeId: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setId(e.target.value);
+  };
+
+  const onChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setPassword(e.target.value);
+  };
 
   return (
     <div className={style.modalBackground}>

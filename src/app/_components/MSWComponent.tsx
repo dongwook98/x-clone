@@ -1,6 +1,8 @@
 'use client';
+
 import { useEffect } from 'react';
 
+// MSW 실행할지 말지 결정하는 컴포넌트
 export const MSWComponent = () => {
   useEffect(() => {
     // 브라우저에서만 돌아간다는걸 보장

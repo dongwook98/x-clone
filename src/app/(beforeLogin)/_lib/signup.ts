@@ -1,6 +1,7 @@
 // 클라이언트 컴포넌트에서 서버 액션 사용
 'use server'; // 서버 액션 사용하려면 작성
 
+import { signIn } from '@/auth'; // 서버에서 로그인 처리
 import { redirect } from 'next/navigation';
 
 const onSubmit = async (prevState: any, formData: FormData) => {
@@ -40,6 +41,12 @@ const onSubmit = async (prevState: any, formData: FormData) => {
     }
     console.log(await response.json());
     shouldRedirect = true;
+    // 회원가입 성공 시 바로 로그인해줌
+    await signIn('credentials', {
+      username: formData.get('id'),
+      password: formData.get('password'),
+      redirect: false, // 서버 리다이렉트 꺼줌
+    });
   } catch (error) {
     console.error(error);
     return { message: null };

@@ -27,15 +27,15 @@ export const handlers = [
   http.post('/api/users', () => {
     console.log('회원가입 API 실행');
     // 실패 응답
-    return HttpResponse.text(JSON.stringify('user_exists'), {
-      status: 403,
-    });
+    // return HttpResponse.text(JSON.stringify('user_exists'), {
+    //   status: 403,
+    // });
 
     // 성공 응답
-    // return HttpResponse.text(JSON.stringify('ok'), {
-    //   headers: {
-    //     'Set-Cookie': 'connect.sid=msw-cookie;HttpOnly;Path=/;',
-    //   },
-    // });
+    return HttpResponse.text(JSON.stringify('회원가입 성공'), {
+      headers: {
+        'Set-Cookie': 'connect.sid=msw-cookie;HttpOnly;Path=/;',
+      },
+    });
   }),
 ];
