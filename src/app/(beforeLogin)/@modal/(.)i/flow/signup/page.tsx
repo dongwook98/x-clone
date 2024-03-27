@@ -1,5 +1,5 @@
-import ClientComponentSignUpModal from '@/app/(beforeLogin)/_components/ClientComponentSignUpModal';
+import SignUpModalClientComponent from '@/app/(beforeLogin)/_components/SignUpModalClientComponent';
 
 export default function Page() {
-  return <ClientComponentSignUpModal />;
+  return <SignUpModalClientComponent />;
 }

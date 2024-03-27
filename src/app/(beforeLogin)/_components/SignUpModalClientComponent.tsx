@@ -24,7 +24,7 @@ const showMessage = (message: string | null | undefined) => {
   return '';
 };
 
-export default function ClientComponentSignUpModal() {
+export default function SignUpModalClientComponent() {
   const [state, formAction] = useFormState(onSubmit, { message: null });
   const { pending } = useFormStatus(); // pending: form action 여부
 
