@@ -78,14 +78,14 @@ export const handlers = [
       {
         postId: cursor + 1,
         User: users[0],
-        content: `${cursor + 1} 힘들다.`,
+        content: `${cursor + 1} 추천 게시글 컨텐츠`,
         Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
         createdAt: generateDate(),
       },
       {
         postId: cursor + 2,
         User: users[1],
-        content: `${cursor + 2} 날씨 좋다.`,
+        content: `${cursor + 2} 추천 게시글 컨텐츠`,
         Images: [
           { imageId: 1, link: faker.image.urlLoremFlickr() },
           { imageId: 2, link: faker.image.urlLoremFlickr() },
@@ -95,14 +95,14 @@ export const handlers = [
       {
         postId: cursor + 3,
         User: users[2],
-        content: `${cursor + 3} 흠.. `,
+        content: `${cursor + 3} 추천 게시글 컨텐츠`,
         Images: [],
         createdAt: generateDate(),
       },
       {
         postId: cursor + 4,
         User: users[1],
-        content: `${cursor + 4} 놀 사람??`,
+        content: `${cursor + 4} 추천 게시글 컨텐츠`,
         Images: [
           { imageId: 1, link: faker.image.urlLoremFlickr() },
           { imageId: 2, link: faker.image.urlLoremFlickr() },
@@ -114,7 +114,63 @@ export const handlers = [
       {
         postId: cursor + 5,
         User: users[2],
-        content: `${cursor + 5} 안녕하세요.`,
+        content: `${cursor + 5} 추천 게시글 컨텐츠`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+          { imageId: 3, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+    ]);
+  }),
+
+  http.get('/api/followingPosts', ({ request }) => {
+    console.log('followingPosts API 요청');
+
+    const url = new URL(request.url);
+    const cursor = parseInt(url.searchParams.get('cursor') as string) || 0;
+    return HttpResponse.json([
+      {
+        postId: cursor + 1,
+        User: users[0],
+        content: `${cursor + 1} 팔로잉 게시글 컨텐츠`,
+        Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
+        createdAt: generateDate(),
+      },
+      {
+        postId: cursor + 2,
+        User: users[1],
+        content: `${cursor + 2} 팔로잉 게시글 컨텐츠`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+      {
+        postId: cursor + 3,
+        User: users[2],
+        content: `${cursor + 3}팔로잉 게시글 컨텐츠`,
+        Images: [],
+        createdAt: generateDate(),
+      },
+      {
+        postId: cursor + 4,
+        User: users[1],
+        content: `${cursor + 4} 팔로잉 게시글 컨텐츠`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+          { imageId: 3, link: faker.image.urlLoremFlickr() },
+          { imageId: 4, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+      {
+        postId: cursor + 5,
+        User: users[2],
+        content: `${cursor + 5} 팔로잉 게시글 컨텐츠`,
         Images: [
           { imageId: 1, link: faker.image.urlLoremFlickr() },
           { imageId: 2, link: faker.image.urlLoremFlickr() },

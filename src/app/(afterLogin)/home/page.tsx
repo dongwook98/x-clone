@@ -8,7 +8,7 @@ import Tab from './_components/Tab';
 import TabProvider from './_components/TabProvider';
 import styles from './page.module.css';
 import { getPostRecommends } from './_lib/getPostRecommends';
-import PostRecommends from './_components/PostRecommends';
+import TabDecider from './_components/TabDecider';
 
 export default async function HomePage() {
   // react-query SSR
@@ -28,7 +28,7 @@ export default async function HomePage() {
         <TabProvider>
           <Tab />
           <PostForm />
-          <PostRecommends />
+          <TabDecider />
         </TabProvider>
       </HydrationBoundary>
     </main>
