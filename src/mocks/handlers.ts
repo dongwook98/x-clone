@@ -11,7 +11,7 @@ function generateDate() {
   });
 }
 
-const Users: User[] = [
+const users: User[] = [
   {
     id: 'dongwook98',
     nickname: '강동욱',
@@ -29,7 +29,7 @@ const Users: User[] = [
   },
 ];
 
-const Posts = [];
+const posts = [];
 
 export const handlers = [
   http.post('/api/login', () => {
@@ -55,7 +55,7 @@ export const handlers = [
     });
   }),
 
-  http.post('/api/users', () => {
+  http.post('/api/sign-up', () => {
     console.log('회원가입 API 실행');
     // 실패 응답
     // return HttpResponse.text(JSON.stringify('user_exists'), {
@@ -77,14 +77,14 @@ export const handlers = [
     return HttpResponse.json([
       {
         postId: cursor + 1,
-        User: Users[0],
+        User: users[0],
         content: `${cursor + 1} 힘들다.`,
         Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
         createdAt: generateDate(),
       },
       {
         postId: cursor + 2,
-        User: Users[1],
+        User: users[1],
         content: `${cursor + 2} 날씨 좋다.`,
         Images: [
           { imageId: 1, link: faker.image.urlLoremFlickr() },
@@ -94,14 +94,14 @@ export const handlers = [
       },
       {
         postId: cursor + 3,
-        User: Users[2],
+        User: users[2],
         content: `${cursor + 3} 흠.. `,
         Images: [],
         createdAt: generateDate(),
       },
       {
         postId: cursor + 4,
-        User: Users[1],
+        User: users[1],
         content: `${cursor + 4} 놀 사람??`,
         Images: [
           { imageId: 1, link: faker.image.urlLoremFlickr() },
@@ -113,7 +113,7 @@ export const handlers = [
       },
       {
         postId: cursor + 5,
-        User: Users[2],
+        User: users[2],
         content: `${cursor + 5} 안녕하세요.`,
         Images: [
           { imageId: 1, link: faker.image.urlLoremFlickr() },

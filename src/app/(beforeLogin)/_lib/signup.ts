@@ -27,7 +27,7 @@ const onSubmit = async (prevState: any, formData: FormData) => {
   let shouldRedirect = false; // try catch문에서 redirect 사용 못해서 변수 생성
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/sign-up`,
       {
         method: 'post',
         body: formData,
