@@ -1,4 +1,35 @@
 import { http, HttpResponse } from 'msw';
+import { faker } from '@faker-js/faker';
+import { User } from '@/app/model/User';
+
+function generateDate() {
+  const lastWeek = new Date(Date.now());
+  lastWeek.setDate(lastWeek.getDate() - 7);
+  return faker.date.between({
+    from: lastWeek,
+    to: Date.now(),
+  });
+}
+
+const Users: User[] = [
+  {
+    id: 'dongwook98',
+    nickname: '강동욱',
+    image: '/me.png',
+  },
+  {
+    id: 'yrk7723',
+    nickname: '김예리',
+    image: '/yeri.jpeg',
+  },
+  {
+    id: 'tain0404',
+    nickname: '이태인',
+    image: faker.image.avatarGitHub(),
+  },
+];
+
+const Posts = [];
 
 export const handlers = [
   http.post('/api/login', () => {
@@ -37,5 +68,60 @@ export const handlers = [
         'Set-Cookie': 'connect.sid=msw-cookie;HttpOnly;Path=/;',
       },
     });
+  }),
+
+  http.get('/api/postRecommends', ({ request }) => {
+    console.log('postRecommends API 요청');
+    const url = new URL(request.url);
+    const cursor = parseInt(url.searchParams.get('cursor') as string) || 0;
+    return HttpResponse.json([
+      {
+        postId: cursor + 1,
+        User: Users[0],
+        content: `${cursor + 1} 힘들다.`,
+        Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
+        createdAt: generateDate(),
+      },
+      {
+        postId: cursor + 2,
+        User: Users[1],
+        content: `${cursor + 2} 날씨 좋다.`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+      {
+        postId: cursor + 3,
+        User: Users[2],
+        content: `${cursor + 3} 흠.. `,
+        Images: [],
+        createdAt: generateDate(),
+      },
+      {
+        postId: cursor + 4,
+        User: Users[1],
+        content: `${cursor + 4} 놀 사람??`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+          { imageId: 3, link: faker.image.urlLoremFlickr() },
+          { imageId: 4, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+      {
+        postId: cursor + 5,
+        User: Users[2],
+        content: `${cursor + 5} 안녕하세요.`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+          { imageId: 3, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+    ]);
   }),
 ];

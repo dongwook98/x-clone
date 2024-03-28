@@ -3,36 +3,21 @@ import {
   QueryClient,
   dehydrate,
 } from '@tanstack/react-query';
-import Post from '../_components/Post';
 import PostForm from './_components/PostForm';
 import Tab from './_components/Tab';
 import TabProvider from './_components/TabProvider';
 import styles from './page.module.css';
-
-async function getPostRecommends() {
-  const res = await fetch(`http://localhost:9090/api/postRecommends`, {
-    next: {
-      tags: ['posts', 'recommends'], // 넥스트 서버에서 저장한 데이터를 업데이트 해주기 위한 Key, revalidateTag(), revalidatePath()로 가능
-    },
-    cache: 'no-store', // 넥스트 서버에서 캐시 설정
-  });
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json();
-}
+import { getPostRecommends } from './_lib/getPostRecommends';
+import PostRecommends from './_components/PostRecommends';
 
 export default async function HomePage() {
   // react-query SSR
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient(); // 리액트 쿼리 동작을 수행하는 클라이언트라는 의미
   await queryClient.prefetchQuery({
     queryKey: ['posts', 'recommends'],
     queryFn: getPostRecommends,
   });
   const dehydratedState = dehydrate(queryClient);
-  console.log(dehydratedState);
 
   return (
     <main className={styles.main}>
@@ -40,15 +25,7 @@ export default async function HomePage() {
         <TabProvider>
           <Tab />
           <PostForm />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+          <PostRecommends />
         </TabProvider>
       </HydrationBoundary>
     </main>
