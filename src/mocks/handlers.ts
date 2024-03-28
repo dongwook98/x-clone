@@ -180,4 +180,59 @@ export const handlers = [
       },
     ]);
   }),
+
+  http.get('/api/search/:tag', ({ request, params }) => {
+    console.log('search API 요청');
+
+    const { tag } = params;
+    return HttpResponse.json([
+      {
+        postId: 1,
+        User: users[0],
+        content: `${1}  검색결과 ${tag}`,
+        Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
+        createdAt: generateDate(),
+      },
+      {
+        postId: 2,
+        User: users[1],
+        content: `${2}  검색결과 ${tag}`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+      {
+        postId: 3,
+        User: users[2],
+        content: `${3} 검색결과 ${tag}`,
+        Images: [],
+        createdAt: generateDate(),
+      },
+      {
+        postId: 4,
+        User: users[1],
+        content: `${4}  검색결과 ${tag}`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+          { imageId: 3, link: faker.image.urlLoremFlickr() },
+          { imageId: 4, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+      {
+        postId: 5,
+        User: users[2],
+        content: `${5}  검색결과 ${tag}`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+          { imageId: 3, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+    ]);
+  }),
 ];

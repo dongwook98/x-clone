@@ -2,12 +2,13 @@ import styles from './page.module.css';
 import BackButton from '@/app/(afterLogin)/_components/BackButton';
 import SearchForm from '@/app/(afterLogin)/_components/SearchForm';
 import Tab from '@/app/(afterLogin)/search/_components/Tab';
-import Post from '@/app/(afterLogin)/_components/Post';
+import SearchResult from './_components/SearchResult';
 
 type Props = {
   searchParams: { q: string; f?: string; pf?: string };
 };
 
+// SSR 안해도되서 SearchResult에서 데이터 페칭
 // searchParams가 기본적으로 들어있음
 export default function SearchPage({ searchParams }: Props) {
   return (
@@ -24,18 +25,7 @@ export default function SearchPage({ searchParams }: Props) {
         <Tab />
       </div>
       <div className={styles.list}>
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        {/*<SearchResult searchParams={searchParams} />*/}
+        <SearchResult searchParams={searchParams} />
       </div>
     </main>
   );
