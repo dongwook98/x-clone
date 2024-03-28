@@ -10,6 +10,8 @@ export default function PostRecommends() {
   const { data } = useQuery<PostType[]>({
     queryKey: ['posts', 'recommends'],
     queryFn: getPostRecommends,
+    staleTime: 60 * 1000, // fresh -> stale로 변하는 시간
+    gcTime: 5 * 60 * 1000, // 기본값 5분
   });
 
   return data?.map((post) => <Post key={post.postId} post={post} />);

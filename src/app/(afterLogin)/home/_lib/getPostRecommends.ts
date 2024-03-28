@@ -1,4 +1,6 @@
 export async function getPostRecommends() {
+  console.log('getPostRecommends 실행');
+
   const res = await fetch(`http://localhost:9090/api/postRecommends`, {
     next: {
       tags: ['posts', 'recommends'], // 넥스트 서버에서 저장한 데이터를 업데이트 해주기 위한 Key, revalidateTag(), revalidatePath()로 가능

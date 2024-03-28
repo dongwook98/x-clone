@@ -19,6 +19,9 @@ export default async function HomePage() {
   });
   const dehydratedState = dehydrate(queryClient);
 
+  // queryClient.getQueryData로 RQProvider children 컴포넌트에서 데이터 공유 가능
+  console.log(queryClient.getQueryData(['posts', 'recommends']));
+
   return (
     <main className={styles.main}>
       <HydrationBoundary state={dehydratedState}>
