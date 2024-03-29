@@ -4,9 +4,7 @@ import styles from '@/app/(afterLogin)/_components/SearchForm.module.css';
 import { useRouter } from 'next/navigation';
 import { FormEventHandler } from 'react';
 
-type Props = { q?: string };
-
-export default function SearchForm({ q }: Props) {
+export default function SearchForm() {
   const router = useRouter();
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (event) => {

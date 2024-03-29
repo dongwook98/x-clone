@@ -32,8 +32,8 @@ const users: User[] = [
 const posts = [];
 
 export const handlers = [
+  // 로그인 api
   http.post('/api/login', () => {
-    console.log('로그인 API 실행');
     return HttpResponse.json(
       { userId: 1, id: 'dongwook98', nickname: '강동욱', image: '/me.png' },
       {
@@ -45,8 +45,8 @@ export const handlers = [
     );
   }),
 
+  // 로그아웃 api
   http.post('/api/logout', () => {
-    console.log('로그아웃 API 실행');
     return new HttpResponse(null, {
       // 로그아웃이니까 쿠키 없애기 -> 값을 없애버림 + Max-Age=0 추가
       headers: {
@@ -55,8 +55,8 @@ export const handlers = [
     });
   }),
 
+  // 회원가입 api
   http.post('/api/sign-up', () => {
-    console.log('회원가입 API 실행');
     // 실패 응답
     // return HttpResponse.text(JSON.stringify('user_exists'), {
     //   status: 403,
@@ -70,8 +70,8 @@ export const handlers = [
     });
   }),
 
+  // 추천 게시글 리스트 조회 api
   http.get('/api/postRecommends', ({ request }) => {
-    console.log('postRecommends API 요청');
     const url = new URL(request.url);
     const cursor = parseInt(url.searchParams.get('cursor') as string) || 0;
     return HttpResponse.json([
@@ -125,9 +125,8 @@ export const handlers = [
     ]);
   }),
 
+  // 유저가 팔로잉한 게시글 리스트 조회 api
   http.get('/api/followingPosts', ({ request }) => {
-    console.log('followingPosts API 요청');
-
     const url = new URL(request.url);
     const cursor = parseInt(url.searchParams.get('cursor') as string) || 0;
     return HttpResponse.json([
@@ -181,9 +180,8 @@ export const handlers = [
     ]);
   }),
 
+  // 검색 게시글 리스트 조회 api
   http.get('/api/search/:tag', ({ request, params }) => {
-    console.log('search API 요청');
-
     const { tag } = params;
     return HttpResponse.json([
       {
@@ -233,6 +231,152 @@ export const handlers = [
         ],
         createdAt: generateDate(),
       },
+    ]);
+  }),
+
+  // 유저의 게시글 리스트 조회 api
+  http.get('/api/users/:userId/posts', ({ request, params }) => {
+    console.log('나의 게시글 API 요청');
+
+    const { userId } = params;
+    return HttpResponse.json([
+      {
+        postId: 1,
+        User: users[0],
+        content: `${1} ${userId}의 게시글`,
+        Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
+        createdAt: generateDate(),
+      },
+      {
+        postId: 2,
+        User: users[1],
+        content: `${2} ${userId}의 게시글`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+      {
+        postId: 3,
+        User: users[2],
+        content: `${3} ${userId}의 게시글`,
+        Images: [],
+        createdAt: generateDate(),
+      },
+      {
+        postId: 4,
+        User: users[1],
+        content: `${4} ${userId}의 게시글`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+          { imageId: 3, link: faker.image.urlLoremFlickr() },
+          { imageId: 4, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+      {
+        postId: 5,
+        User: users[2],
+        content: `${5} ${userId}의 게시글`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+          { imageId: 3, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+    ]);
+  }),
+
+  // 유저 정보 조회 api
+  http.get('/api/users/:userId', ({ request, params }) => {
+    const { userId } = params;
+    return HttpResponse.json(users[1]);
+  }),
+
+  // 상세 게시글 조회 api
+  http.get('/api/posts/:postId', ({ request, params }) => {
+    const { postId } = params;
+    return HttpResponse.json({
+      postId: 1,
+      User: users[0],
+      content: `${1} ${postId}의 게시글의 내용`,
+      Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
+      createdAt: generateDate(),
+    });
+  }),
+
+  // 게시글의 답글 리스트 조회 api
+  http.get('/api/posts/:postId/comments', ({ request, params }) => {
+    const { postId } = params;
+    return HttpResponse.json([
+      {
+        postId: 1,
+        User: users[0],
+        content: `${1} ${postId}의 게시글의 답글`,
+        Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
+        createdAt: generateDate(),
+      },
+      {
+        postId: 2,
+        User: users[1],
+        content: `${2} ${postId}의 게시글의 답글`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+      {
+        postId: 3,
+        User: users[2],
+        content: `${3} ${postId}의 게시글의 답글`,
+        Images: [],
+        createdAt: generateDate(),
+      },
+      {
+        postId: 4,
+        User: users[1],
+        content: `${4} ${postId}의 게시글의 답글`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+          { imageId: 3, link: faker.image.urlLoremFlickr() },
+          { imageId: 4, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+      {
+        postId: 5,
+        User: users[2],
+        content: `${5} ${postId}의 게시글의 답글`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+          { imageId: 3, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+    ]);
+  }),
+
+  // 팔로우 추천 리스트 조회 api
+  http.get('/api/followRecommends', ({ request }) => {
+    return HttpResponse.json(users);
+  }),
+
+  // 트렌드 리스트 조회 api
+  http.get('/api/trends', ({ request }) => {
+    return HttpResponse.json([
+      { tagId: 1, title: '해시태그1', count: 1234 },
+      { tagId: 2, title: '해시태그2', count: 1234 },
+      { tagId: 3, title: '해시태그3', count: 1234 },
+      { tagId: 4, title: '해시태그4', count: 1234 },
+      { tagId: 5, title: '해시태그5', count: 1234 },
+      { tagId: 6, title: '해시태그6', count: 1234 },
+      { tagId: 7, title: '해시태그7', count: 1234 },
     ]);
   }),
 ];

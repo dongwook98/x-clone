@@ -5,21 +5,16 @@ import Logo from '../../../public/logo.png';
 import NavMenu from './_components/NavMenu';
 import LogOutButton from './_components/LogOutButton';
 import TrendSection from './_components/TrendSection';
-import FollowRecommend from './_components/FollowRecommend';
 import RightSearchZone from './_components/RightSearchZone';
 import { auth } from '@/auth';
 import RQProvider from './_components/RQProvider';
+import FollowRecommendSection from './_components/FollowRecommendSection';
 
 type Props = {
   children: React.ReactNode;
   modal: React.ReactNode;
 };
 
-// () 폴더는 브라우저 주소에 추가되지 않음
-// () 폴더는 레이아웃을 만들기 위해 사용함
-// 레이아웃은 페이지 이동해도 그대로 유지됨, 새롭게 마운트 X
-// 만약에 페이지 이동시 레이아웃도 새롭게 마운트 되게 하고 싶다면 template.tsx 사용
-// layout.tsx와 template.tsx는 공존 X
 export default async function AfterLoginLayout({ children, modal }: Props) {
   const session = await auth();
 
@@ -60,6 +55,7 @@ export default async function AfterLoginLayout({ children, modal }: Props) {
           </div>
         </section>
       </header>
+      {/* 리액트 쿼리 사용할 곳 감싸주기 */}
       <RQProvider>
         <div className={styles.rightSectionWrapper}>
           <div className={styles.rightSectionInner}>
@@ -69,9 +65,7 @@ export default async function AfterLoginLayout({ children, modal }: Props) {
               <TrendSection />
               <div className={styles.followRecommend}>
                 <h3>팔로우 추천</h3>
-                <FollowRecommend />
-                <FollowRecommend />
-                <FollowRecommend />
+                <FollowRecommendSection />
               </div>
             </section>
           </div>

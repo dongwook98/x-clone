@@ -19,7 +19,7 @@ export default function SearchPage({ searchParams }: Props) {
             <BackButton />
           </div>
           <div className={styles.formZone}>
-            <SearchForm q={searchParams.q} />
+            <SearchForm />
           </div>
         </div>
         <Tab />
