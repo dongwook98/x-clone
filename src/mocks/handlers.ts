@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw';
+import { http, HttpResponse, StrictResponse } from 'msw';
 import { faker } from '@faker-js/faker';
 import { User } from '@/app/model/User';
 
@@ -249,7 +249,7 @@ export const handlers = [
       },
       {
         postId: 2,
-        User: users[1],
+        User: users[0],
         content: `${2} ${userId}의 게시글`,
         Images: [
           { imageId: 1, link: faker.image.urlLoremFlickr() },
@@ -259,14 +259,14 @@ export const handlers = [
       },
       {
         postId: 3,
-        User: users[2],
+        User: users[0],
         content: `${3} ${userId}의 게시글`,
         Images: [],
         createdAt: generateDate(),
       },
       {
         postId: 4,
-        User: users[1],
+        User: users[0],
         content: `${4} ${userId}의 게시글`,
         Images: [
           { imageId: 1, link: faker.image.urlLoremFlickr() },
@@ -278,7 +278,7 @@ export const handlers = [
       },
       {
         postId: 5,
-        User: users[2],
+        User: users[0],
         content: `${5} ${userId}의 게시글`,
         Images: [
           { imageId: 1, link: faker.image.urlLoremFlickr() },
@@ -291,19 +291,40 @@ export const handlers = [
   }),
 
   // 유저 정보 조회 api
-  http.get('/api/users/:userId', ({ request, params }) => {
+  http.get('/api/users/:userId', ({ request, params }): StrictResponse<any> => {
     const { userId } = params;
-    return HttpResponse.json(users[1]);
+    const found = users.find((v) => v.id === userId);
+    if (found) {
+      return HttpResponse.json(found);
+    }
+    return HttpResponse.json(
+      { message: 'no_such_user' },
+      {
+        status: 404,
+      }
+    );
   }),
 
   // 상세 게시글 조회 api
-  http.get('/api/posts/:postId', ({ request, params }) => {
+  http.get('/api/posts/:postId', ({ request, params }): StrictResponse<any> => {
     const { postId } = params;
+    if (parseInt(postId as string) > 10) {
+      return HttpResponse.json(
+        { message: 'no_such_post' },
+        {
+          status: 404,
+        }
+      );
+    }
     return HttpResponse.json({
-      postId: 1,
+      postId,
       User: users[0],
-      content: `${1} ${postId}의 게시글의 내용`,
-      Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
+      content: `${1} 게시글 아이디 ${postId}의 내용`,
+      Images: [
+        { imageId: 1, link: faker.image.urlLoremFlickr() },
+        { imageId: 2, link: faker.image.urlLoremFlickr() },
+        { imageId: 3, link: faker.image.urlLoremFlickr() },
+      ],
       createdAt: generateDate(),
     });
   }),

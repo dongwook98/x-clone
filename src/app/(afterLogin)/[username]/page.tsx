@@ -1,39 +1,40 @@
 import styles from './page.module.css';
-import Post from '@/app/(afterLogin)/_components/Post';
-import BackButton from '@/app/(afterLogin)/_components/BackButton';
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from '@tanstack/react-query';
+import UserPosts from './_components/UserPosts';
+import { getUserPosts } from './_lib/getUserPosts';
+import UserInfo from './_components/UserInfo';
+import { getUser } from './_lib/getUser';
 
-export default function ProfilePage() {
-  const user = {
-    id: 'dongwook98',
-    nickname: '강동욱',
-    image: '/me.png',
-  };
+type Props = {
+  params: { username: string };
+};
+
+// SSR 적용,
+export default async function ProfilePage({ params }: Props) {
+  const { username } = params;
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ['users', username],
+    queryFn: getUser,
+  });
+  await queryClient.prefetchQuery({
+    queryKey: ['posts', 'users', username],
+    queryFn: getUserPosts,
+  });
+  const dehydratedState = dehydrate(queryClient);
 
   return (
     <main className={styles.main}>
-      <div className={styles.header}>
-        <BackButton />
-        <h3 className={styles.headerTitle}>{user.nickname}</h3>
-      </div>
-      <div className={styles.userZone}>
-        <div className={styles.userImage}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={user.image} alt={user.id} />
+      <HydrationBoundary state={dehydratedState}>
+        <UserInfo username={username} />
+        <div>
+          <UserPosts username={username} />
         </div>
-        <div className={styles.userName}>
-          <div>{user.nickname}</div>
-          <div>@{user.id}</div>
-        </div>
-        <button className={styles.followButton}>팔로우</button>
-      </div>
-      <div>
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-      </div>
+      </HydrationBoundary>
     </main>
   );
 }
