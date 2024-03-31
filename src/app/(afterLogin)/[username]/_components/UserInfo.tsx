@@ -23,6 +23,7 @@ export default function UserInfo({ username }: Props) {
     gcTime: 5 * 60 * 1000,
   });
 
+  // 존재하지 않는 사용자 404
   if (error) {
     return (
       <>
